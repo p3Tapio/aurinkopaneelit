@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
+app.use(express.static('build')) 
 const request = require('request')
 const SunnyPortal = require('./portal')
 const Panel = require('./models/panel')
