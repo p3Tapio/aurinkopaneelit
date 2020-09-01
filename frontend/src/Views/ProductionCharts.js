@@ -14,9 +14,9 @@ const ProductionCharts = () => {
     }, [])
 
     if (data) {
-   
         return (
-            <div>
+            <div style={{margin:"10%"}}>
+                <h4>Aurinkokennot</h4>
                 <ProductionLineChart data={data} />
                 <ProductionAreaChart data={data} />
             </div>
