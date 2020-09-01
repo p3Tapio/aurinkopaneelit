@@ -2,10 +2,14 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 app.use(express.static('build')) 
+const cors = require('cors') 
 const request = require('request')
 const SunnyPortal = require('./portal')
 const Panel = require('./models/panel')
 app.use(express.json())
+app.use(cors()) 
+
+
 
 // Palauttaa (7 pvn ajalta?) päiväkohtaiset tiedot paneeleittan. 
 app.get('/api/dateandyield', (request, response) => {
