@@ -5,7 +5,7 @@ import ProductionAreaChart from '../Components/ProductionAreaChart'
 
 const ProductionCharts = () => {
     const [data, setData] = useState()
-    const [showLineChart, setShowLineChart] = useState(true)
+    const [showLineChart, setShowLineChart] = useState(false)
     // const url = 'http://localhost:3001/api/dateandyield' 
     const url = 'https://aurinkopaneelit.herokuapp.com/api/dateandyield'
     console.log('showLineChart', showLineChart)
@@ -18,14 +18,18 @@ const ProductionCharts = () => {
 
     if (data) {
         return (
-            <div style={{ margin: "10%" }}>
-                <div style={{ whiteSpace: 'nowrap' }}>
-                    <h4 style={{ display: 'inline-block', marginRight: '15px' }}>Aurinkokennot</h4>
-                    <button onClick={() => setShowLineChart(!showLineChart)}>Vaihda graafi</button>
+            <div style={{ paddingBottom: '56.25%', position: 'relative', height: 0 }} >
+                <div style={{ position: 'absolute', top: '40%', left: '50%', width: '60%', height: '60%',  transform: 'translate(-50%, -50%)' }}>
+                    <div style={{ whiteSpace: 'nowrap' }}>
+                        <h4 style={{ display: 'inline-block', marginRight: '15px' }}>Aurinkokennot</h4>
+                        <button onClick={() => setShowLineChart(!showLineChart)}>Vaihda graafi</button>
+                    </div>
+                    {/* <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}> */}
+                        {showLineChart
+                            ? <ProductionLineChart data={data} />
+                            : <ProductionAreaChart data={data} />}
+                    {/* </div> */}
                 </div>
-                {showLineChart
-                    ? <ProductionLineChart data={data} />
-                    : <ProductionAreaChart data={data} />}
             </div>
         )
     } else {

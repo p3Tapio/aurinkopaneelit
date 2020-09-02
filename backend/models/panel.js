@@ -7,7 +7,7 @@ console.log('Connecting to ', url)
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then(() => {
-        console.log('Connected to MongoDB')     // TODO sunnyPortal.currentProduction --- voiko koko tämän metodin siirtää then():n sisään?  
+        console.log('Connected to MongoDB')     // TODO  --- voiko koko tämän connect-metodin siirtää sunnyPortal.currentProduction() sisään?  
     }).catch(error => {
         console.error('Error: ', error.message)
     })

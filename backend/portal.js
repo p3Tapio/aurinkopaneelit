@@ -71,7 +71,7 @@ const SunnyPortal = function (params) {
             })
         })
     }
-    // TODO Logout ?
+    // TODO signin / logout ?
     return {
         currentProduction: currentProduction
     };

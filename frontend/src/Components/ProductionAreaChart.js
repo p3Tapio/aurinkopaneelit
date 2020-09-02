@@ -1,21 +1,21 @@
 import React from 'react'
-import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, AreaChart, Area } from 'recharts'
+import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, AreaChart, Area, ResponsiveContainer } from 'recharts'
 
-const ProductionAreaChart = ({data}) => {
+
+const ProductionAreaChart = ({ data }) => {
     return (
-        <div>
-            <AreaChart width={600} height={400} data={data}
-                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" />
+        <ResponsiveContainer>
+            <AreaChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                {/* <CartesianGrid strokeDasharray="3 3" /> */}
                 <XAxis dataKey="date" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Area type="monotone" name="Careeria Amt" dataKey="careeria_amt" stackId="1" stroke='#8884d8' fill='#8884d8' />
-                <Area type="monotone" name="Careeria Hkk" dataKey="careeria_hkk" stackId="1" stroke='#82ca9d' fill='#82ca9d' />
-                <Area type="monotone" name="Careeria Vantaa" dataKey="careeria_vantaa" stackId="1" stroke='#ffc658' fill='#ffc658' />
+                <Area type="monotone" name="Careeria Amt" dataKey="careeria_amt" stackId="1" stroke='#91EB93' fill='#91EB93' />
+                <Area type="monotone" name="Careeria Hkk" dataKey="careeria_hkk" stackId="1" stroke='#38AE3A' fill='#38AE3A' />
+                <Area type="monotone" name="Careeria Vantaa" dataKey="careeria_vantaa" stackId="1" stroke='#629D63' fill='#629D63' />
             </AreaChart>
-        </div>
+        </ResponsiveContainer>
     )
 }
 

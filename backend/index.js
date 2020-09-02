@@ -9,7 +9,7 @@ const request = require('request')
 const SunnyPortal = require('./portal')
 const Panel = require('./models/panel')
 
-// Palauttaa 7 pvn ajalta? päiväkohtaiset tiedot paneeleittan. 
+// Palauttaa 7 pvn ajalta päiväkohtaiset tiedot paneeleittan. 
 app.get('/api/dateandyield', (request, response) => {
 
     Panel.find({}).then(res => {
@@ -42,7 +42,7 @@ app.get('/api/dateandyield', (request, response) => {
 setInterval(function () {
 
     const date = new Date()
-    if (date.getHours() === 1 && date.getMinutes() ===24) {    // laukee klo 01 (hki), mutta time stamppi on 22 (utc)??? --- vaihda klo 2 tai 3 jottei kesäajalla väliä tai googlaa miten ton saa aikavyöhykkeen mukaan
+    if (date.getHours() === 1 && date.getMinutes() ===24) {    // laukee klo 01 (hki), mutta time stamppi on 22 (utc)??? --- TODO vaikuttaako talviaikaan siirto toimintaan? vaihda klo 2 tai 3 jottei?
       
         const params = { username: process.env.SUNNY_USER, password: process.env.SUNNY_PASS }
         const sunnyPortal = new SunnyPortal(params)
@@ -76,17 +76,18 @@ setInterval(function () {
                         Total_yield_MeterReading: body[i][`Total yield [kWh] Meter reading`],
                         Specific_yield_currentMonth: body[i][`Specific yield [kWh/kWp] ${thisMM} ${yyyy}`],
                         Specific_yield_currentYear: body[i][`Specific yield [kWh/kWp] ${yyyy}`],
-                        Date: new Date(),   // Time stamp = "yesterday", eli edellinen pv klo 22, pvm on siis suoraan oikein "yesterday"-arvolle ... TODO mieti jos järkevämpää iskeä tuo joten oikealla timezonella 
+                        Date: new Date(),   // Time stamp = "yesterday", eli edellinen pv klo 22, pvm on siis suoraan oikein "yesterday"-arvolle? ... TODO mieti jos järkevämpää tuo jotenkin oikealla timezonella 
                     })
                     data.save()
                     console.log('data saved at ', date) // klo 01 HKI aikaa, 22:00 UTC 
                 }
             } else {
                 console.log('Error: no currentProduction() body ', date)
+                console.log('Error msg: ', err)
             }
         })
     }
-}, 60000)   // harvemmin tarkistus, esim 10 min ja if(getHours() === 1) ? 
+}, 60000)  
 
 var reqTimer = setTimeout(function wakeUp() {
     request("https://aurinkopaneelit.herokuapp.com/", function () {
