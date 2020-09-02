@@ -18,19 +18,17 @@ const ProductionCharts = () => {
 
     if (data) {
         return (
-            <div style={{ paddingBottom: '56.25%', position: 'relative', height: 0 }} >
-                <div style={{ position: 'absolute', top: '40%', left: '50%', width: '60%', height: '60%',  transform: 'translate(-50%, -50%)' }}>
-                    <div style={{ whiteSpace: 'nowrap' }}>
-                        <h4 style={{ display: 'inline-block', marginRight: '15px' }}>Aurinkokennot</h4>
-                        <button onClick={() => setShowLineChart(!showLineChart)}>Vaihda graafi</button>
-                    </div>
-                    {/* <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}> */}
-                        {showLineChart
-                            ? <ProductionLineChart data={data} />
-                            : <ProductionAreaChart data={data} />}
-                    {/* </div> */}
+
+            <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                <div style={{ whiteSpace: 'nowrap' }}>
+                    <h4 style={{ display: 'inline-block', marginRight: '15px' }}>Aurinkokennot</h4>
+                    <button onClick={() => setShowLineChart(!showLineChart)}>Vaihda graafi</button>
                 </div>
+                {showLineChart
+                    ? <ProductionLineChart data={data} />
+                    : <ProductionAreaChart data={data} />}
             </div>
+
         )
     } else {
         return <p>Ladataan tietoja ..... </p>
