@@ -1,22 +1,24 @@
 require('dotenv').config()
 const express = require('express')
+var cors = require('cors')
 const app = express()
+app.use(cors())
 app.use(express.static('build')) 
-const cors = require('cors') 
+app.use(express.json())
 const request = require('request')
 const SunnyPortal = require('./portal')
 const Panel = require('./models/panel')
-app.use(express.json())
-app.use(cors()) 
 
-
-
-// Palauttaa (7 pvn ajalta?) päiväkohtaiset tiedot paneeleittan. 
+// Palauttaa 7 pvn ajalta? päiväkohtaiset tiedot paneeleittan. 
 app.get('/api/dateandyield', (request, response) => {
 
     Panel.find({}).then(res => {
 
+        const date = new Date()   
+        date.setDate(date.getDate() - 7)
+        res = res.filter(x => x.Date > date)
         res.map(x=> {x.Date = x.Date.setDate(x.Date.getDate() - 1) })
+
         const resEdit = res.map(x => ({
             pv_system: x.PV_System,
             yield: x.Total_yield_yesterday,
@@ -40,7 +42,7 @@ app.get('/api/dateandyield', (request, response) => {
 setInterval(function () {
 
     const date = new Date()
-    if (date.getHours() === 1 && date.getMinutes() === 00) {    // laukee klo 01 (hki), mutta time stamppi on 22 (utc)??? --- vaihda klo 2 tai 3 jottei kesäajalla väliä tai googlaa miten ton saa aikavyöhykkeen mukaan
+    if (date.getHours() === 1 && date.getMinutes() ===24) {    // laukee klo 01 (hki), mutta time stamppi on 22 (utc)??? --- vaihda klo 2 tai 3 jottei kesäajalla väliä tai googlaa miten ton saa aikavyöhykkeen mukaan
       
         const params = { username: process.env.SUNNY_USER, password: process.env.SUNNY_PASS }
         const sunnyPortal = new SunnyPortal(params)
