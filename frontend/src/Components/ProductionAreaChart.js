@@ -1,10 +1,16 @@
 import React from 'react'
+import useWindowDimensions from '../Tools/WindowDimensions'
 import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, AreaChart, Area } from 'recharts'
 
 const ProductionAreaChart = ({data}) => {
+    
+    let {height, width} = useWindowDimensions() 
+    width = width < 800 ? width : 1200
+    height = width < 800 ? width/2 : 600
+
     return (
         <div>
-            <AreaChart width={1200} height={600} data={data} >
+            <AreaChart width={width} height={height} data={data} >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
                 <YAxis />

@@ -1,10 +1,16 @@
 import React from 'react'
+import useWindowDimensions from '../Tools/WindowDimensions'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 
 const ProductionLineChart = ({ data }) => {
+
+    let {height, width} = useWindowDimensions() 
+    width = width < 800 ? width : 1200
+    height = width < 800 ? width/2 : 600
+
     return (
         <div>
-            <LineChart width={1200} height={600} data={data} >
+            <LineChart width={width} height={height} data={data} >
                 <XAxis dataKey="date" />
                 <YAxis />
                 <CartesianGrid strokeDasharray="3 3" />
