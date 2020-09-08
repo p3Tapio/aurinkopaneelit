@@ -22,7 +22,7 @@ const paneeliSchema = new mongoose.Schema({
     Total_yield_MeterReading: String,
     Specific_yield_currentMonth: String,
     Specific_yield_currentYear: String,
-    Date: Date,
+    Date: { type: Date, expires: '8d' }
 })
 // TODO disconnect, kun "get" sunnyportaliin on tehty? 
 module.exports = mongoose.model('Panel', paneeliSchema)
