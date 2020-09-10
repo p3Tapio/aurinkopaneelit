@@ -30,6 +30,7 @@ app.get('/api/dateandyield', (request, response) => {
             careeria_amt: resEdit.map(y => x[key] == y.date && y.pv_system == 'Careeria Amt' ? y.yield : null).filter(x => x != null).toString(),
             careeria_hkk: resEdit.map(y => x[key] == y.date && y.pv_system == 'Careeria HKK' ? y.yield : null).filter(x => x != null).toString(),
             careeria_vantaa: resEdit.map(y => x[key] == y.date && y.pv_system == 'Careeria Vantaa' ? y.yield : null).filter(x => x != null).toString(),
+            careeria_pmt: resEdit.map(y => x[key] == y.date && y.pv_system == 'Careeria PMT' ? y.yield : null).filter(x => x != null).toString(),
         }))
         response.status(200).json(data)
 
@@ -42,7 +43,7 @@ app.get('/api/dateandyield', (request, response) => {
 setInterval(function () {
 
     const date = new Date()
-    if (date.getHours() === 1 && date.getMinutes() ===24) {    // laukee klo 01 (hki), mutta time stamppi on 22 (utc)??? --- TODO vaikuttaako talviaikaan siirto toimintaan? vaihda klo 2 tai 3 jottei?
+    if (date.getHours() === 1 && date.getMinutes() === 30) {  
       
         const params = { username: process.env.SUNNY_USER, password: process.env.SUNNY_PASS }
         const sunnyPortal = new SunnyPortal(params)
@@ -65,7 +66,7 @@ setInterval(function () {
                 yyyy = date.getFullYear()
                 const yesterday = `${mm}/${dd}/${yyyy}`
     
-                for (i = 0; i < 3; i++) {
+                for (i = 0; i < 4; i++) {
                     const data = new Panel({
                         PV_System: body[i]['PV System'],
                         PV_System_Power: body[i]['PV system power'],
@@ -78,9 +79,10 @@ setInterval(function () {
                         Specific_yield_currentYear: body[i][`Specific yield [kWh/kWp] ${yyyy}`],
                         Date: new Date(),   // Time stamp = "yesterday", eli edellinen pv klo 22, pvm on siis suoraan oikein "yesterday"-arvolle? ... TODO mieti jos järkevämpää tuo jotenkin oikealla timezonella 
                     })
+                    console.log('data', data)
                     data.save()
-                    console.log('data saved at ', date) // klo 01 HKI aikaa, 22:00 UTC 
                 }
+                console.log('data saved at: ', date) // klo 01 HKI aikaa, 22:00 UTC 
             } else {
                 console.log('Error: no currentProduction() body ', date)
                 console.log('Error msg: ', err)
