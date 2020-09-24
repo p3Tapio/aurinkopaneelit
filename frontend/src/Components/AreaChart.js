@@ -1,13 +1,13 @@
 import React from 'react'
-import useWindowDimensions from '../Tools/WindowDimensions'
+import useContainerDimensions from '../Tools/ContainerDimensions'
 import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, AreaChart, Area, ResponsiveContainer } from 'recharts'
 import { useSelector } from 'react-redux'
 
 const ProductionAreaChart = () => {
 
     const data = useSelector(state => state)
-    let { height, width } = useWindowDimensions()
-    height = width > 1350 ? Math.round(width / 3) : Math.round(width / 2)
+    let { height, width } = useContainerDimensions()
+    height = Math.round(width / 2)
 
     return (
         <div>

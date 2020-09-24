@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react'
 
 const getDimensions = () => {
-    const { innerWidth: width, innerHeight: height } = window
-    return { width, height }
+
+    const x = document.getElementById('mainContainer')
+    
+    if (x) {
+        const { clientWidth: width, clientHeight: height } = x
+        return { width, height }
+    }
+
+    return { width: 1080, height: 540 }
 }
 
-const useWindowDimensions = () => {
+const useContainerDimensions = () => {
     const [dimensions, setDimensions] = useState(getDimensions())
     useEffect(() => {
         const handleResize = () => {
@@ -17,5 +24,5 @@ const useWindowDimensions = () => {
     }, [])
     return dimensions
 }
-export default useWindowDimensions
+export default useContainerDimensions
 

@@ -4,17 +4,21 @@ import { initData } from './reducer/panelDataReducer'
 import ProductionLineChart from './Components/LineChart'
 import ProductionAreaChart from './Components/AreaChart'
 import logo from './img/careeria_green.jpg'
-import useWindowDimensions from './Tools/WindowDimensions'
+import useContainerDimensions from './Tools/ContainerDimensions'
 
 function App() {
 
     const [showAreaChart, setShowAreaChart] = useState(true)
     const [buttonText, setButtonText] = useState('Viivakaavio')
-    let { height, width } = useWindowDimensions()
+    
+    let { height, width } = useContainerDimensions()
+    width = width / 5
+    height = width / 3
+
     const dispatch = useDispatch()
     useEffect(() => { dispatch(initData()) }, [dispatch])
-    width = width /8
-    height = width / 3
+
+
     const changeChart = () => {
         setShowAreaChart(!showAreaChart)
         if (buttonText === 'Viivakaavio') setButtonText('Aluekaavio')
@@ -23,24 +27,20 @@ function App() {
 
     return (
         <div className="verticalCenter">
-            <div className="container ">
-                {/* <div className="row"> */}
-                {/* <div className="col-10"> */}
+            <div className="container" id="mainContainer">
                 <div>
                     <button onClick={changeChart} className="btn btn-info-sm btn1">{buttonText}</button>
                 </div>
-                <div>
+                <div className="mb-4">
                     {showAreaChart
                         ? < ProductionAreaChart />
                         : < ProductionLineChart />}
                 </div>
-                {/* </div> */}
-                {/* </div> */}
-                <div className="d-flex flex-row-reverse mb-4">
-                    <img src={logo} style={{ width, height}} alt="logo" />
+                <div className="d-flex flex-row-reverse mt-4">
+                    <img src={logo} style={{ width, height }} alt="logo" />
                 </div>
             </div>
-        </div>
+         </div>
 
     );
 }
