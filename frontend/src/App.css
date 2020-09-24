@@ -1,22 +1,19 @@
-/* .recharts-cartesian-axis { 
-    font-size: 1rem !important;
-	color: black !important;
-	font-family:  Arial; 
-}
-.recharts-legend-item {
-    font-size: 1rem !important;
-	color: black !important;
-	font-family:  Arial;
-} */
 body {
-	font-family:  Arial;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-style: normal;
 }
-/* #container {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 10px;
-    width: 800px;
-    height: 800px;
-    background-color: #fff;
-  } */
+.btn1 {
+    margin: 20px; 
+}
+/* .logo {
+   position: absolute;
+   bottom: 100px;
+   right: 100px;
+} */
+.verticalCenter {
+    min-height: 95%; 
+    min-height: 95vh; 
+  
+    display: flex;
+    align-items: center;
+}

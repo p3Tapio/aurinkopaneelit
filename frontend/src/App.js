@@ -1,32 +1,48 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { initData } from './reducer/panelDataReducer'
-import axios from 'axios'
-import './App.css'
-import ProductionCharts from './Views/ProductionCharts'
+import ProductionLineChart from './Components/LineChart'
+import ProductionAreaChart from './Components/AreaChart'
+import logo from './img/careeria_green.jpg'
+import useWindowDimensions from './Tools/WindowDimensions'
 
 function App() {
 
+    const [showAreaChart, setShowAreaChart] = useState(true)
+    const [buttonText, setButtonText] = useState('Viivakaavio')
+    let { height, width } = useWindowDimensions()
     const dispatch = useDispatch()
-
-    useEffect(() => {
-        axios.get('https://aurinkopaneelit.herokuapp.com/api/dateandyield').then(res => {
-            const resEdit = res.data.map(({ careeria_amt, careeria_hkk, careeria_vantaa, careeria_pmt, ...rest }) =>
-                ({
-                    ...rest,
-                    careeria_amt: parseFloat(careeria_amt),
-                    careeria_hkk: parseFloat(careeria_hkk),
-                    careeria_vantaa: parseFloat(careeria_vantaa),
-                    careeria_pmt: parseFloat(careeria_pmt)
-                }))
-            dispatch(initData(resEdit))
-        })
-    }, [dispatch])
+    useEffect(() => { dispatch(initData()) }, [dispatch])
+    width = width /8
+    height = width / 3
+    const changeChart = () => {
+        setShowAreaChart(!showAreaChart)
+        if (buttonText === 'Viivakaavio') setButtonText('Aluekaavio')
+        else setButtonText('Viivakaavio')
+    }
 
     return (
-        <div className="App">
-            <ProductionCharts />
+        <div className="verticalCenter">
+            <div className="container ">
+                {/* <div className="row"> */}
+                {/* <div className="col-10"> */}
+                <div>
+                    <button onClick={changeChart} className="btn btn-info-sm btn1">{buttonText}</button>
+                </div>
+                <div>
+                    {showAreaChart
+                        ? < ProductionAreaChart />
+                        : < ProductionLineChart />}
+                </div>
+                {/* </div> */}
+                {/* </div> */}
+                <div className="d-flex flex-row-reverse mb-4">
+                    <img src={logo} style={{ width, height}} alt="logo" />
+                </div>
+            </div>
         </div>
+
     );
 }
 export default App;
+
