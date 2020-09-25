@@ -91,13 +91,6 @@ setInterval(function () {
     }
 }, 60000)  
 
-// var reqTimer = setTimeout(function wakeUp() {
-//     request("https://aurinkopaneelit.herokuapp.com/", function () {
-//         console.log("STAY AWAKE DYNO");
-//     });
-//     return reqTimer = setTimeout(wakeUp, 1200000);
-// }, 1200000);
-
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)

@@ -11,9 +11,9 @@ function App() {
     const [showAreaChart, setShowAreaChart] = useState(true)
     const [buttonText, setButtonText] = useState('Viivakaavio')
 
-    let { height, width } = useContainerWidth()
+    let { width } = useContainerWidth()
     width = width / 5
-    height = width / 3
+    const height = width / 3
 
     const dispatch = useDispatch()
     useEffect(() => { dispatch(initData()) }, [dispatch])

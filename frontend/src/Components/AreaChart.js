@@ -22,7 +22,6 @@ const ProductionAreaChart = () => {
                 <Area type="monotone" name="Careeria Vantaa" dataKey="careeria_vantaa" stackId="1" stroke='#50FA53' fill='#50FA53' />
                 <Area type="monotone" name="Careeria Pmt" dataKey="careeria_pmt" stackId="1" stroke='#38AE3A' fill='#38AE3A' />
             </AreaChart>
-
         </div>
     )
 }

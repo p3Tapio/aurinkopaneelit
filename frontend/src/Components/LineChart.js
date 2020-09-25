@@ -11,7 +11,7 @@ const ProductionLineChart = () => {
 
     return (
         <div>
-            <LineChart width={width} height={height} data={data} >
+            <LineChart width={width} height={height} data={data} margin={{ right: 50 }}  >
                 <XAxis dataKey="date" />
                 <YAxis />
                 <CartesianGrid strokeDasharray="3 3" />
