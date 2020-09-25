@@ -5,15 +5,12 @@ body {
 .btn1 {
     margin: 20px; 
 }
-/* .logo {
-   position: absolute;
-   bottom: 100px;
-   right: 100px;
-} */
+
+/* 
 .verticalCenter {
-    min-height: 95%; 
-    min-height: 95vh; 
+    min-height: 100%; 
+    min-height: 100vh; 
   
-    display: flex;
+    display: flex;  // bugaa ekalla renderöinnillä, kun selain 100% ja res leveys 1200-1500. Padding ylimmässä divissä on väliaika workaround.  
     align-items: center;
-}
+} */
