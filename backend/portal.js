@@ -52,16 +52,13 @@ const SunnyPortal = function (params) {
         _login(function (err, jar) {
             if (err) callback(err)
             const ops = { method: 'GET', strictSSL: false, jar: jar }
-            request(url + PLANTS_URL, ops, function (err, httpResponse, body) {
+            request(url + PLANTS_URL, ops, function (err, httpResponse, body) { 
                 if (err) {
                     console.error('Failed to open /Plants URL')
                     callback(err)
                 }
                 request(url + '/Plants/Download', ops, function (err, httpResponse, body) {
                     const x = []
-                    // TODO handlaa error: 
-                    // Unhandled rejection CSV Parse Error: Error: unclosed_quote. JSON Line number: 58 near:
-                    // <div style="float:left; width:225px; margin-right:20px;">    
                     csv({ delimiter: ';' }).fromString(body).subscribe((jsonObj) => {
                         x.push(jsonObj)
                     }).then(() => {
@@ -71,7 +68,7 @@ const SunnyPortal = function (params) {
             })
         })
     }
-    // TODO signin / logout ?
+
     return {
         currentProduction: currentProduction
     };

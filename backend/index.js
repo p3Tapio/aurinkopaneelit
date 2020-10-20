@@ -9,7 +9,6 @@ const request = require('request')
 const SunnyPortal = require('./portal')
 const Panel = require('./models/panel')
 
-// Palauttaa 7 pvn ajalta päiväkohtaiset tiedot paneeleittan. 
 app.get('/api/dateandyield', (request, response) => {
 
     Panel.find({}).then(res => {
@@ -70,19 +69,19 @@ setInterval(function () {
                     const data = new Panel({
                         PV_System: body[i]['PV System'],
                         PV_System_Power: body[i]['PV system power'],
-                        Total_yield_today: body[i][`Total yield [kWh] ${today}`],       // TODO poista koska aina "no data"
+                        Total_yield_today: body[i][`Total yield [kWh] ${today}`],      
                         Total_yield_yesterday: body[i][`Total yield [kWh] ${yesterday}`],
                         Total_yield_lastMonth: body[i][`Total yield [kWh] ${lastMM} ${yyyy}`],
                         Total_yield_currentMonth: body[i][`Total yield [kWh] ${thisMM} ${yyyy}`],
                         Total_yield_MeterReading: body[i][`Total yield [kWh] Meter reading`],
                         Specific_yield_currentMonth: body[i][`Specific yield [kWh/kWp] ${thisMM} ${yyyy}`],
                         Specific_yield_currentYear: body[i][`Specific yield [kWh/kWp] ${yyyy}`],
-                        Date: new Date(),   // Time stamp = "yesterday", eli edellinen pv klo 22, pvm on siis suoraan oikein "yesterday"-arvolle? ... TODO mieti jos järkevämpää tuo jotenkin oikealla timezonella 
+                        Date: new Date(),  
                     })
                     console.log('data', data)
                     data.save()
                 }
-                console.log('data saved at: ', date) // klo 01 HKI aikaa, 22:00 UTC 
+                console.log('data saved at: ', date) 
             } else {
                 console.log('Error: no currentProduction() body ', date)
                 console.log('Error msg: ', err)
