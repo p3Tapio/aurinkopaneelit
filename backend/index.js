@@ -5,7 +5,6 @@ const app = express()
 app.use(cors())
 app.use(express.static('build')) 
 app.use(express.json())
-const request = require('request')
 const SunnyPortal = require('./portal')
 const Panel = require('./models/panel')
 
@@ -37,6 +36,22 @@ app.get('/api/dateandyield', (request, response) => {
         response.status(400).json({ error: 'failed to get' })
         console.log('/api/dateandyield error: ', err)
     })
+})
+
+
+app.get('/api/monthproduction', async (request, response) => {
+
+    let date = new Date()
+    date.setDate(date.getDate() - 1)
+    const data = await Panel.find({ Date: { $gte: date } })
+
+    const dataEdit = data.map(x => ({
+        pv_system: x.PV_System,
+        production: x.Total_yield_currentMonth
+    }))
+    const withDate = { date: data[0].Date, data: dataEdit.map(x => x) }
+    response.status(200).json(withDate)
+
 })
 
 setInterval(function () {

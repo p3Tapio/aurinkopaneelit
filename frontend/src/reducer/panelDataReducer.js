@@ -1,19 +1,21 @@
 import axios from 'axios'
+const baseUrl = "http://localhost:3001/api/" 
 
 const panelDataReducer = (state = [], action) => {
-
     switch (action.type) {
-        case 'INIT_DATA':
-            return action.data
+        case 'INIT_WEEK':
+            return { ...state, week: action.data }
+        case 'INIT_MONTH':
+            return { ...state, month: action.data }
         default:
             return state
     }
 }
-export const initData = () => {
 
+const initWeekData = () => {
     return async dispatch => {
-
-        const res = await axios.get('https://aurinkopaneelit.herokuapp.com/api/dateandyield')
+        
+        const res = await axios.get(`${baseUrl}dateandyield`)
         const panelData = res.data.map(({ careeria_amt, careeria_hkk, careeria_vantaa, careeria_pmt, ...rest }) =>
             ({
                 ...rest,
@@ -24,10 +26,34 @@ export const initData = () => {
             }))
 
         dispatch({
-            type: 'INIT_DATA',
+            type: 'INIT_WEEK',
             data: panelData,
         })
     }
 }
+const initMonthData = () => {
+    return async dispatch => {
+        const res = await axios.get(`${baseUrl}monthproduction`)
+
+        const panelData = res.data.data.map(({ production, ...rest}) => ({
+            ...rest, 
+            production: parseFloat(production)
+        }))
+        panelData.push({date: new Date(res.data.date)})
+     
+        dispatch({
+            type: 'INIT_MONTH',
+            data: panelData,
+        })
+    }
+}
+
+export const initData = () => async (dispatch) => {
+    await Promise.all([
+        dispatch(initWeekData()),
+        dispatch(initMonthData())
+    ])
+}
+
 
 export default panelDataReducer

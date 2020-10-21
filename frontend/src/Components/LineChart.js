@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux'
 
 const ProductionLineChart = () => {
 
-    const data = useSelector(state => state)
-    const { width } = useContainerWidth()
-    const height = Math.round(width / 2)
+    const data = useSelector(state => state.week)
+    const { width } = useContainerWidth() 
+    const height = Math.round(width / 2) 
 
     return (
         <div>

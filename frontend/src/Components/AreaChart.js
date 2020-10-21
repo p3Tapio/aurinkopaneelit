@@ -5,10 +5,10 @@ import { useSelector } from 'react-redux'
 
 const ProductionAreaChart = () => {
 
-    const data = useSelector(state => state)
+    const data = useSelector(state => state.week)
     const { width } = useContainerWidth()
     const height = Math.round(width / 2)
-
+   
     return (
         <div>
             <AreaChart width={width} height={height} data={data} margin={{ right: 50 }} >
