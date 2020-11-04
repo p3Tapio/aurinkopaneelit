@@ -13,11 +13,9 @@ const ProductionLineChart = () => {
         <div>
             <LineChart width={width} height={height} data={data} margin={{ right: 50 }}  >
                 <XAxis dataKey="date" />
-                <YAxis orientation="left" stroke="black" tickFormatter={(label) => `${label} kWh`}/>
+                <YAxis orientation="left" tickFormatter={(label) => `${label} kWh`}/>
                 <CartesianGrid strokeDasharray="3 3" />
-                <Tooltip 
-                
-                />
+                <Tooltip />
                 <Legend />
                 <Line type="monotone" name="Careeria Amt" dataKey="careeria_amt" stroke="#000000" unit=" kWh"/>
                 <Line type="monotone" name="Careeria Hkk" dataKey="careeria_hkk" stroke="#656566 " unit=" kWh"/>

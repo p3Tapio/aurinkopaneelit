@@ -14,7 +14,7 @@ const ProductionAreaChart = () => {
             <AreaChart width={width} height={height} data={data} margin={{ right: 50 }} >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
-                <YAxis orientation="left" stroke="black" tickFormatter={(label) => `${label} kWh`}/>
+                <YAxis orientation="left" tickFormatter={(label) => `${label} kWh`}/>
                 <Tooltip />
                 <Legend />
                 <Area type="monotone" name="Careeria Amt" dataKey="careeria_amt" stackId="1" stroke='#3CBA3E' fill='#3CBA3E' unit=" kWh"/>
